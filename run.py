@@ -32,3 +32,6 @@ revenues_df['revenue'] = pd.to_numeric(revenues_df['revenue'])
 
 # Merge appointments and revenues on 'appointment_id'
 merged_df = pd.merge(appointments_df, revenues_df, on='appointment_id', how='left')
+
+# Convert 'appointment_date' to datetime
+merged_df['appointment_date'] = pd.to_datetime(merged_df['appointment_date'])
