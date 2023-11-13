@@ -48,3 +48,7 @@ total_revenue = data_2023.groupby('clinic_id')['revenue'].sum()
 
 # Count unique patients for each clinic
 unique_patients = data_2023.groupby('clinic_id')['patient_id'].nunique()
+
+# Sum up total revenue and unique patient counts for all clinics
+total_revenue_all = total_revenue.sum()
+total_unique_patients_all = unique_patients.sum()
