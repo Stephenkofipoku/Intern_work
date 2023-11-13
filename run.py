@@ -29,3 +29,6 @@ revenues_df = pd.DataFrame(revenues_data[1:], columns=revenues_data[0])
 
 # Convert 'revenue' column to numeric
 revenues_df['revenue'] = pd.to_numeric(revenues_df['revenue'])
+
+# Merge appointments and revenues on 'appointment_id'
+merged_df = pd.merge(appointments_df, revenues_df, on='appointment_id', how='left')
