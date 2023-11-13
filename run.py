@@ -26,3 +26,6 @@ revenues_data = revenues_worksheet.get_all_values()
 # Convert data to pandas DataFrames
 appointments_df = pd.DataFrame(appointments_data[1:], columns=appointments_data[0])
 revenues_df = pd.DataFrame(revenues_data[1:], columns=revenues_data[0])
+
+# Convert 'revenue' column to numeric
+revenues_df['revenue'] = pd.to_numeric(revenues_df['revenue'])
