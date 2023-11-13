@@ -27,8 +27,11 @@ revenues_data = revenues_worksheet.get_all_values()
 appointments_df = pd.DataFrame(appointments_data[1:], columns=appointments_data[0])
 revenues_df = pd.DataFrame(revenues_data[1:], columns=revenues_data[0])
 
+# Replace "NULL" with NaN in 'revenue' column
+revenues_df['revenue'] = revenues_df['revenue'].replace("NULL", pd.NA)
+
 # Convert 'revenue' column to numeric
-revenues_df['revenue'] = pd.to_numeric(revenues_df['revenue'])
+revenues_df['revenue'] = pd.to_numeric(revenues_df['revenue'], errors='coerce')
 
 # Merge appointments and revenues on 'appointment_id'
 merged_df = pd.merge(appointments_df, revenues_df, on='appointment_id', how='left')
@@ -52,3 +55,12 @@ unique_patients = data_2023.groupby('clinic_id')['patient_id'].nunique()
 # Sum up total revenue and unique patient counts for all clinics
 total_revenue_all = total_revenue.sum()
 total_unique_patients_all = unique_patients.sum()
+
+print("Total Revenue for Each Clinic:")
+print(total_revenue)
+
+print("\nUnique Patients for Each Clinic:")
+print(unique_patients)
+
+print("\nTotal Revenue for All Clinics in 2023:", total_revenue_all)
+print("Total Unique Patients for All Clinics in 2023:", total_unique_patients_all)
