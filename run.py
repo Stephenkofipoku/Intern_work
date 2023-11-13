@@ -42,3 +42,6 @@ merged_df.loc[merged_df['clinic_id'].isin(['clinic_2', 'clinic_3']), 'clinic_lau
 
 # Filter data for 2023
 data_2023 = merged_df[merged_df['appointment_date'].dt.year == 2023]
+
+# Calculate total revenue for each clinic
+total_revenue = data_2023.groupby('clinic_id')['revenue'].sum()
