@@ -39,12 +39,20 @@ merged_df = pd.merge(appointments_df, revenues_df, on='appointment_id', how='lef
 # Convert 'appointment_date' to datetime
 merged_df['appointment_date'] = pd.to_datetime(merged_df['appointment_date'])
 
-# Create a new column 'clinic_launch' to identify when each clinic was launched
-merged_df['clinic_launch'] = pd.to_datetime('2023-03-01')  # Assuming March 2023 launch for the first clinic
-merged_df.loc[merged_df['clinic_id'].isin(['clinic_2', 'clinic_3']), 'clinic_launch'] = pd.to_datetime('2023-07-01')  # July 2023 launch for clinic_2 and clinic_3
+# Assuming the launch dates for clinics
+launch_dates = {
+    'clinic_1': pd.to_datetime('2022-01-01'),
+    'clinic_2': pd.to_datetime('2022-01-01'),
+    'clinic_3': pd.to_datetime('2023-03-01'),
+    'clinic_4': pd.to_datetime('2023-07-01')
+}
 
-# Filter data for 2023
-data_2023 = merged_df[merged_df['appointment_date'].dt.year == 2023]
+# Filter data for 2023 based on launch dates
+data_2023 = merged_df.copy()
+
+# Debugging prints
+print("Data Columns:")
+print(data_2023.columns)
 
 # Calculate total revenue for each clinic
 total_revenue = data_2023.groupby('clinic_id')['revenue'].sum()
@@ -56,10 +64,10 @@ unique_patients = data_2023.groupby('clinic_id')['patient_id'].nunique()
 total_revenue_all = total_revenue.sum()
 total_unique_patients_all = unique_patients.sum()
 
-print("Total Revenue for Each Clinic:")
+print("Total Revenue for Each Clinic in 2023:")
 print(total_revenue)
 
-print("\nUnique Patients for Each Clinic:")
+print("\nUnique Patients for Each Clinic in 2023:")
 print(unique_patients)
 
 print("\nTotal Revenue for All Clinics in 2023:", total_revenue_all)
