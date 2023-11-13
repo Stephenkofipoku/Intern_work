@@ -1,13 +1,12 @@
 import gspread
-import gspread
 from google.oauth2.service_account import Credentials
-import pandas as pd 
+import pandas as pd
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
-    ]
+]
 
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
@@ -47,15 +46,31 @@ launch_dates = {
     'clinic_4': pd.to_datetime('2023-07-01')
 }
 
-# Filter data for 2023 based on launch dates
+# Filter data for 2023 based on launch dates for all clinics
 data_2023 = merged_df.copy()
+for clinic_id, launch_date in launch_dates.items():
+    data_2023.loc[data_2023['clinic_id'] == clinic_id, 'clinic_launch'] = launch_date
+
+# Filter data for 2023 based on clinic launch dates
+data_2023 = data_2023[data_2023['appointment_date'] >= data_2023['clinic_launch']]
 
 # Debugging prints
 print("Data Columns:")
 print(data_2023.columns)
 
+# Debugging print to check unique clinic IDs
+print("\nUnique Clinic IDs in Data for 2023:")
+print(data_2023['clinic_id'].unique())
+
 # Calculate total revenue for each clinic
 total_revenue = data_2023.groupby('clinic_id')['revenue'].sum()
+
+# Debugging prints
+print("\nData for 2023:")
+print(data_2023)
+
+print("\nTotal Revenue for Each Clinic in 2023:")
+print(total_revenue)
 
 # Count unique patients for each clinic
 unique_patients = data_2023.groupby('clinic_id')['patient_id'].nunique()
