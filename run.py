@@ -35,3 +35,7 @@ merged_df = pd.merge(appointments_df, revenues_df, on='appointment_id', how='lef
 
 # Convert 'appointment_date' to datetime
 merged_df['appointment_date'] = pd.to_datetime(merged_df['appointment_date'])
+
+# Create a new column 'clinic_launch' to identify when each clinic was launched
+merged_df['clinic_launch'] = pd.to_datetime('2023-03-01')  # Assuming March 2023 launch for the first clinic
+merged_df.loc[merged_df['clinic_id'].isin(['clinic_2', 'clinic_3']), 'clinic_launch'] = pd.to_datetime('2023-07-01')  # July 2023 launch for clinic_2 and clinic_3
