@@ -1,6 +1,7 @@
 import gspread
 import gspread
 from google.oauth2.service_account import Credentials
+import pandas as pd 
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -22,8 +23,6 @@ revenues_worksheet = revenues_spreadsheet.worksheet('revenues')
 appointments_data = appointments_worksheet.get_all_values()
 revenues_data = revenues_worksheet.get_all_values()
 
-print("Appointments Data:")
-print(appointments_data)
-
-print("Revenues Data:")
-print(revenues_data)
+# Convert data to pandas DataFrames
+appointments_df = pd.DataFrame(appointments_data[1:], columns=appointments_data[0])
+revenues_df = pd.DataFrame(revenues_data[1:], columns=revenues_data[0])
