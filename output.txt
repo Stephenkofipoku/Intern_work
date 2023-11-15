@@ -1,0 +1,13 @@
+
+Estimates for All Clinics in 2023:
+Total Revenue by Clinic:
+  clinic_id    revenue
+0         1  920110.26
+1         2  984163.85
+2  clinic_1       0.00
+3  clinic_2       0.00
+4  clinic_3       0.00
+5  clinic_4       0.00
+
+Total Revenue: 1904274.1099999999
+Unique Patients: 3978
