@@ -4,6 +4,7 @@ import pandas as pd
 import subprocess
 import sys
 import os
+from contextlib import redirect_stdout
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
